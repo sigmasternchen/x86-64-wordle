@@ -80,7 +80,7 @@ body {
     background-color: black;
 }
 
-.cell.HalfRight {
+.key.HalfRight {
     background-color: #bb0;
     border: none;
 }
