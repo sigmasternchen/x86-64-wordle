@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+.field {
+    text-align: center;
+}
+
+.cell {
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    margin: 3px;
+    border: 1px solid #555;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+    padding-top: 7px;
+    font-weight: bold;
+}
+
+.cell.Unknown {
+    background-color: black;
+}
+
+.cell.Wrong {
+    background-color: #555;
+    border: none;
+}
+
+.cell.HalfRight {
+    background-color: #bb0;
+    border: none;
+}
+
+.cell.Right {
+    background-color: #090;
+    border: none;
+}
+
+.keyboard {
+    text-align: center;
+}
+
+.key {
+    display: inline-block;
+    height: 40px;
+    min-width: 33px;
+    margin: 3px;
+    border: 1px solid #555;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    padding-top: 8px;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-weight: bold
+}
+
+.key.Unknown {;
+    background-color: #555;
+    border: none;
+}
+
+.key.Wrong {
+    background-color: black;
+}
+
+.cell.HalfRight {
+    background-color: #bb0;
+    border: none;
+}
+
+.key.Right {
+    background-color: #090;
+    border: none;
+}
