@@ -11,7 +11,7 @@ export const Field = ({size, fieldData}) => {
                 range(size[0]).map(x => (
                     <Cell
                         state={fieldData?.[y]?.[x]?.state ?? CellState.Unknown}
-                        content={fieldData?.[y]?.[x]?.content ?? ""}
+                        content={fieldData?.[y]?.[x]?.content ?? " "}
                     />
                 )).concat([<br />])
             )

@@ -3,18 +3,32 @@ import {Field} from "./Field";
 import {calculateDifference} from "../logic/game-logic";
 import {id, objectMap, zip} from "../utils";
 import {Keyboard} from "./Keyboard";
-import {sortCellStates} from "../model/CellState";
+import {CellState, sortCellStates} from "../model/CellState";
 
 export const App = () => {
+    const length = 5;
     const correct = "guess";
-    const guesses = [
-        "ascii",
-        "eager",
-        "faces",
-        "guess",
-    ];
 
-    const fieldData = guesses
+    const [pastGuesses, setPastGuesses] = React.useState([]);
+
+    const [currentGuess, setCurrentGuess] = React.useState("");
+
+    const inputHandler = key => {
+        if (currentGuess.length > 0 && key === "BACK") {
+            setCurrentGuess(currentGuess.substring(0, currentGuess.length - 1));
+        } else if (currentGuess.length >= length) {
+            if (key === "ENTER") {
+                setPastGuesses(pastGuesses.concat([currentGuess]));
+                setCurrentGuess("");
+            } else {
+                // do nothing
+            }
+        } else if (key.length === 1) {
+            setCurrentGuess(currentGuess + key);
+        }
+    };
+
+    const fieldDataForPastGuesses = pastGuesses
         .map(guess => guess.toUpperCase())
         .map(guess => [
             guess.split(""),
@@ -30,7 +44,7 @@ export const App = () => {
 
     const used = objectMap(
         Object.groupBy(
-            fieldData
+            fieldDataForPastGuesses
                 .flatMap(id)
                 .flatMap(id),
             cell => cell.content
@@ -41,12 +55,21 @@ export const App = () => {
             .at(-1)
     );
 
+    const fieldData = fieldDataForPastGuesses
+        .concat([currentGuess
+            .split("")
+            .map(char => ({
+                state: CellState.Unknown,
+                content: char,
+            }))
+        ])
+
 
     return <div>
         <Field
             size={[5, 6]}
             fieldData={fieldData}
         />
-        <Keyboard used={used} />
+        <Keyboard used={used} onKey={inputHandler}/>
     </div>
 };
