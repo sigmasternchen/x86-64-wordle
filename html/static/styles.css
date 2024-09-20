@@ -7,6 +7,16 @@ body {
     background-color: black;
 }
 
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 60px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
 .setup {
     text-align: center;
     color: white;
@@ -14,6 +24,7 @@ body {
 
 .setup ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .setup li {

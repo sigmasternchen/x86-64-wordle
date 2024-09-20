@@ -11,7 +11,7 @@ export const SetupScreen = ({dictionary, selectLength}) => {
         .map(length => [length, lengthsMap[length].length]);
 
     return <div className="setup">
-        <h1>Select word length</h1>
+        <h2>Select word length</h2>
         <ul>
         {lengths.map(([length, numberOfWordsWithLength]) =>
             <li key={length} onClick={() => selectLength(parseInt(length))}>

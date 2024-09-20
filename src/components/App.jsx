@@ -21,17 +21,20 @@ export const App = () => {
 
     console.log(correct)
 
-    return <>{ wordLength === null ?
-        <SetupScreen
-            dictionary={dictionary}
-            selectLength={setWordLength}
-        /> :
-        <Game
-            wordLength={wordLength}
-            reset={() => setWordLength(null)}
-            numberOfGuesses={numberOfGuesses}
-            availableWords={availableWords}
-            correctWord={correct}
-        />
-    }</>
+    return <>
+        <h1>x86-64 Wordle</h1>
+        { wordLength === null ?
+            <SetupScreen
+                dictionary={dictionary}
+                selectLength={setWordLength}
+            /> :
+            <Game
+                wordLength={wordLength}
+                reset={() => setWordLength(null)}
+                numberOfGuesses={numberOfGuesses}
+                availableWords={availableWords}
+                correctWord={correct}
+            />
+        }
+    </>
 };
