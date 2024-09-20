@@ -5,6 +5,10 @@ import {id, objectMap, zip} from "../utils";
 import {Keyboard} from "./Keyboard";
 import {CellState, sortCellStates} from "../model/CellState";
 import {Toast} from "./Toast";
+import dictionary from "../data/dictionary.json"
+import {newSFC32} from "../random/sfc32";
+
+const validWordsRegex = /[A-Z]+/;
 
 export const App = () => {
     const [pastGuesses, setPastGuesses] = useState([]);
@@ -13,9 +17,16 @@ export const App = () => {
     const [message, setMessage] = useState("");
 
     const length = 5;
-    const correct = "guess";
+    const availableWords = dictionary
+        .filter(word => validWordsRegex.test(word))
+        .filter(word => word.length === length);
 
+    const today = Date.now() / 1000 / 60 / 60 / 24;
+    const random = newSFC32(today);
 
+    const correct = availableWords[Math.floor(random() * availableWords.length)];
+
+    console.log(correct)
 
     const fieldDataForPastGuesses = pastGuesses
         .map(guess => guess.toUpperCase())
