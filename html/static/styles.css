@@ -60,6 +60,12 @@ body {
     text-align: center;
 }
 
+.keyboard.disabled .key {
+    cursor: initial;
+    background-color: #555;
+    color: #888;
+}
+
 .key {
     display: inline-block;
     height: 40px;
@@ -113,4 +119,33 @@ body {
 
 .toast.show {
     transform: translate(-50%, 0);
+}
+
+.result {
+    position: fixed;
+    width: 500px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 5px;
+    font-size: 70px;
+    padding-top: 100px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.result.won {
+    background-color: #090;
+}
+
+.result.lost {
+    background-color: #900;
+}
+
+.result.show {
+    pointer-events: initial;
+    opacity: 1;
 }

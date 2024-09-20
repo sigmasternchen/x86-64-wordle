@@ -7,19 +7,22 @@ import {CellState, sortCellStates} from "../model/CellState";
 import {Toast} from "./Toast";
 import dictionary from "../data/dictionary.json"
 import {newSFC32} from "../random/sfc32";
+import {GameState} from "../model/GameState";
 
 const validWordsRegex = /[A-Z]+/;
 
 export const App = () => {
+    const [gameState, setGameState] = useState(GameState.Active);
     const [pastGuesses, setPastGuesses] = useState([]);
     const [currentGuess, setCurrentGuess] = useState("");
 
     const [message, setMessage] = useState("");
 
-    const length = 5;
+    const wordLength = 5;
+    const numberOfGuesses = 6;
     const availableWords = dictionary
         .filter(word => validWordsRegex.test(word))
-        .filter(word => word.length === length);
+        .filter(word => word.length === wordLength);
 
     const today = Date.now() / 1000 / 60 / 60 / 24;
     const random = newSFC32(today);
@@ -57,9 +60,17 @@ export const App = () => {
 
     const inputHandler = key => {
         if (key === "ENTER") {
-            if (currentGuess.length === length) {
+            if (currentGuess.length === wordLength) {
                 setPastGuesses(pastGuesses.concat([currentGuess]));
                 setCurrentGuess("");
+
+                if (currentGuess.toUpperCase() === correct.toUpperCase()) {
+                    setGameState(GameState.Won);
+                } else {
+                    if (pastGuesses.length === numberOfGuesses - 1) {
+                        setGameState(GameState.Lost);
+                    }
+                }
             } else {
                 setMessage("Not enough letters.");
             }
@@ -68,7 +79,7 @@ export const App = () => {
                 setCurrentGuess(currentGuess.substring(0, currentGuess.length - 1));
             }
         } else {
-            if (currentGuess.length < length) {
+            if (currentGuess.length < wordLength) {
                 setCurrentGuess(currentGuess + key);
             }
         }
@@ -87,10 +98,12 @@ export const App = () => {
 
     return <div>
         <Field
-            size={[5, 6]}
+            size={[wordLength, numberOfGuesses]}
             fieldData={fieldData}
         />
-        <Keyboard used={usedWithState} onKey={inputHandler}/>
-        <Toast message={message} />
+        <Keyboard enabled={gameState === GameState.Active} used={usedWithState} onKey={inputHandler}/>
+        <Toast message={message}/>
+        <div className={"result won " + (gameState === GameState.Won ? "show" : "")}>You won!</div>
+        <div className={"result lost " + (gameState === GameState.Lost ? "show" : "")}>You lost!</div>
     </div>
 };

@@ -2,7 +2,7 @@ import React from "react";
 import {CellState} from "../model/CellState";
 import {Key} from "./Key";
 
-export const Keyboard = ({used, onKey}) => {
+export const Keyboard = ({enabled, used, onKey}) => {
     const keys = [
         "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", null,
         "A", "S", "D", "F", "G", "H", "J", "K", "L", null,
@@ -10,7 +10,7 @@ export const Keyboard = ({used, onKey}) => {
     ];
 
     let newlineCounter = 0;
-    return <div className="keyboard">
+    return <div className={"keyboard " + (!enabled ? "disabled" : "")}>
         {
             keys.map((key) => {
                 if (key) {
