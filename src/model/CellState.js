@@ -1,6 +1,7 @@
 import {makeEnum} from "../utils";
 
 export const CellState = makeEnum([
+   "Empty",
    "Unknown",
    "Wrong",
    "HalfRight",
@@ -9,6 +10,7 @@ export const CellState = makeEnum([
 
 const cellStateOrder = (cellState) => {
    switch (cellState) {
+      case CellState.Empty: return 0;
       case CellState.Unknown: return 0;
       case CellState.Wrong: return 1;
       case CellState.HalfRight: return 2;

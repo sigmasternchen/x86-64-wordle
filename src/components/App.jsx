@@ -13,21 +13,6 @@ export const App = () => {
 
     const [currentGuess, setCurrentGuess] = React.useState("");
 
-    const inputHandler = key => {
-        if (currentGuess.length > 0 && key === "BACK") {
-            setCurrentGuess(currentGuess.substring(0, currentGuess.length - 1));
-        } else if (currentGuess.length >= length) {
-            if (key === "ENTER") {
-                setPastGuesses(pastGuesses.concat([currentGuess]));
-                setCurrentGuess("");
-            } else {
-                // do nothing
-            }
-        } else if (key.length === 1) {
-            setCurrentGuess(currentGuess + key);
-        }
-    };
-
     const fieldDataForPastGuesses = pastGuesses
         .map(guess => guess.toUpperCase())
         .map(guess => [
@@ -42,7 +27,7 @@ export const App = () => {
             }))
         );
 
-    const used = objectMap(
+    const usedWithState = objectMap(
         Object.groupBy(
             fieldDataForPastGuesses
                 .flatMap(id)
@@ -54,6 +39,21 @@ export const App = () => {
             .toSorted(sortCellStates)
             .at(-1)
     );
+
+    const inputHandler = key => {
+        if (currentGuess.length > 0 && key === "BACK") {
+            setCurrentGuess(currentGuess.substring(0, currentGuess.length - 1));
+        } else if (currentGuess.length >= length) {
+            if (key === "ENTER") {
+                setPastGuesses(pastGuesses.concat([currentGuess]));
+                setCurrentGuess("");
+            } else {
+                // do nothing
+            }
+        } else if (key.length === 1) {
+            setCurrentGuess(currentGuess + key);
+        }
+    };
 
     const fieldData = fieldDataForPastGuesses
         .concat([currentGuess
@@ -70,6 +70,6 @@ export const App = () => {
             size={[5, 6]}
             fieldData={fieldData}
         />
-        <Keyboard used={used} onKey={inputHandler}/>
+        <Keyboard used={usedWithState} onKey={inputHandler}/>
     </div>
 };

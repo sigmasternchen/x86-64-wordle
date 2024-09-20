@@ -10,7 +10,7 @@ export const Field = ({size, fieldData}) => {
             range(size[1]).map(y =>
                 range(size[0]).map(x => (
                     <Cell
-                        state={fieldData?.[y]?.[x]?.state ?? CellState.Unknown}
+                        state={fieldData?.[y]?.[x]?.state ?? CellState.Empty}
                         content={fieldData?.[y]?.[x]?.content ?? " "}
                     />
                 )).concat([<br />])

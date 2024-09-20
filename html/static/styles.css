@@ -32,8 +32,13 @@ body {
     text-align: center;
 }
 
+.cell.Empty {
+    background-color: black;
+}
+
 .cell.Unknown {
     background-color: black;
+    border: 1px solid #888;
 }
 
 .cell.Wrong {
