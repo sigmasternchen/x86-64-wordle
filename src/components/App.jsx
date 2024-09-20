@@ -1,17 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import {Field} from "./Field";
 import {calculateDifference} from "../logic/game-logic";
 import {id, objectMap, zip} from "../utils";
 import {Keyboard} from "./Keyboard";
 import {CellState, sortCellStates} from "../model/CellState";
+import {Toast} from "./Toast";
 
 export const App = () => {
+    const [pastGuesses, setPastGuesses] = useState([]);
+    const [currentGuess, setCurrentGuess] = useState("");
+
+    const [message, setMessage] = useState("");
+
     const length = 5;
     const correct = "guess";
 
-    const [pastGuesses, setPastGuesses] = React.useState([]);
 
-    const [currentGuess, setCurrentGuess] = React.useState("");
 
     const fieldDataForPastGuesses = pastGuesses
         .map(guess => guess.toUpperCase())
@@ -41,17 +45,21 @@ export const App = () => {
     );
 
     const inputHandler = key => {
-        if (currentGuess.length > 0 && key === "BACK") {
-            setCurrentGuess(currentGuess.substring(0, currentGuess.length - 1));
-        } else if (currentGuess.length >= length) {
-            if (key === "ENTER") {
+        if (key === "ENTER") {
+            if (currentGuess.length === length) {
                 setPastGuesses(pastGuesses.concat([currentGuess]));
                 setCurrentGuess("");
             } else {
-                // do nothing
+                setMessage("Not enough letters.");
             }
-        } else if (key.length === 1) {
-            setCurrentGuess(currentGuess + key);
+        } else if (key === "BACK") {
+            if (currentGuess.length > 0) {
+                setCurrentGuess(currentGuess.substring(0, currentGuess.length - 1));
+            }
+        } else {
+            if (currentGuess.length < length) {
+                setCurrentGuess(currentGuess + key);
+            }
         }
     };
 
@@ -65,11 +73,13 @@ export const App = () => {
         ])
 
 
+
     return <div>
         <Field
             size={[5, 6]}
             fieldData={fieldData}
         />
         <Keyboard used={usedWithState} onKey={inputHandler}/>
+        <Toast message={message} />
     </div>
 };
