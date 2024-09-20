@@ -61,14 +61,18 @@ export const App = () => {
     const inputHandler = key => {
         if (key === "ENTER") {
             if (currentGuess.length === wordLength) {
-                setPastGuesses(pastGuesses.concat([currentGuess]));
-                setCurrentGuess("");
-
-                if (currentGuess.toUpperCase() === correct.toUpperCase()) {
-                    setGameState(GameState.Won);
+                if (availableWords.indexOf(currentGuess) === -1) {
+                    setMessage("Not in word list.");
                 } else {
-                    if (pastGuesses.length === numberOfGuesses - 1) {
-                        setGameState(GameState.Lost);
+                    setPastGuesses(pastGuesses.concat([currentGuess]));
+                    setCurrentGuess("");
+
+                    if (currentGuess.toUpperCase() === correct.toUpperCase()) {
+                        setGameState(GameState.Won);
+                    } else {
+                        if (pastGuesses.length === numberOfGuesses - 1) {
+                            setGameState(GameState.Lost);
+                        }
                     }
                 }
             } else {
@@ -93,8 +97,6 @@ export const App = () => {
                 content: char,
             }))
         ])
-
-
 
     return <div>
         <Field
