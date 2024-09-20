@@ -9,13 +9,14 @@ export const Keyboard = ({used, onKey}) => {
         "ENTER", "Z", "X", "C", "V", "B", "N", "M", "BACK"
     ];
 
+    let newlineCounter = 0;
     return <div className="keyboard">
         {
             keys.map((key) => {
                 if (key) {
-                    return <Key onKey={onKey} state={used[key] ?? CellState.Unknown} content={key} />;
+                    return <Key key={key} onKey={onKey} state={used[key] ?? CellState.Unknown} content={key} />;
                 } else {
-                    return <br />
+                    return <br key={"br-" + newlineCounter++} />
                 }
             })
         }
