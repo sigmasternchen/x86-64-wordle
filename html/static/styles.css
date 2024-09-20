@@ -7,6 +7,40 @@ body {
     background-color: black;
 }
 
+.setup {
+    text-align: center;
+    color: white;
+}
+
+.setup ul {
+    list-style-type: none;
+}
+
+.setup li {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+    height: 40px;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+    text-align: left;
+    padding: 7px 7px 7px 25px;
+    font-size: 20px;
+}
+
+.setup li span {
+    position: absolute;
+    left: 60px;
+    bottom: 10px;
+    font-size: 15px;
+    color: #aaa;
+}
+
+.setup li:hover {
+    background-color: #555;
+}
+
 .field {
     text-align: center;
 }

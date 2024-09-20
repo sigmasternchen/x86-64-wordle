@@ -1,17 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import dictionary from "../data/dictionary.json"
 import {newSFC32} from "../random/sfc32";
 import {Game} from "./Game";
+import {SetupScreen} from "./SetupScreen";
 
 const validWordsRegex = /[A-Z]+/;
 
 export const App = () => {
-    const wordLength = 5;
+    const [wordLength, setWordLength] = useState(null);
     const numberOfGuesses = 6;
 
     const today = Date.now() / 1000 / 60 / 60 / 24;
     const random = newSFC32(today);
-
 
     const availableWords = dictionary
         .filter(word => validWordsRegex.test(word))
@@ -21,10 +21,17 @@ export const App = () => {
 
     console.log(correct)
 
-    return <Game
-        wordLength={wordLength}
-        numberOfGuesses={numberOfGuesses}
-        availableWords={availableWords}
-        correctWord={correct}
-    />
+    return <>{ wordLength === null ?
+        <SetupScreen
+            dictionary={dictionary}
+            selectLength={setWordLength}
+        /> :
+        <Game
+            wordLength={wordLength}
+            reset={() => setWordLength(null)}
+            numberOfGuesses={numberOfGuesses}
+            availableWords={availableWords}
+            correctWord={correct}
+        />
+    }</>
 };
