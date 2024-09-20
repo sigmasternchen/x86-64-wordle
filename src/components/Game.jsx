@@ -6,6 +6,7 @@ import {CellState, sortCellStates} from "../model/CellState";
 import {Field} from "./Field";
 import {Keyboard} from "./Keyboard";
 import {Toast} from "./Toast";
+import {GameResult} from "./GameResult";
 
 export const Game = ({wordLength, numberOfGuesses, correctWord, availableWords, reset}) => {
     const [gameState, setGameState] = useState(GameState.Active);
@@ -96,7 +97,7 @@ export const Game = ({wordLength, numberOfGuesses, correctWord, availableWords, 
         />
         <Keyboard enabled={gameState === GameState.Active} used={usedWithState} onKey={inputHandler}/>
         <Toast message={message}/>
-        <div className={"result won " + (gameState === GameState.Won ? "show" : "")}>You won!</div>
-        <div className={"result lost " + (gameState === GameState.Lost ? "show" : "")}>You lost!</div>
+        <GameResult reset={resetHandler} show={gameState === GameState.Won} className={"won"} text={"You won!"} />
+        <GameResult reset={resetHandler} show={gameState === GameState.Lost} className={"lost"} text={"You lost!"} />
     </div>
 }
