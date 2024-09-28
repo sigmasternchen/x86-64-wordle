@@ -146,6 +146,14 @@ h2 {
     border: none;
 }
 
+@media screen and (max-width: 600px) {
+    .key {
+        height: 8vw;
+        min-width: 6vw;
+        font-size: 4vw;
+    }
+}
+
 .toast {
     position: fixed;
     top: 0;
