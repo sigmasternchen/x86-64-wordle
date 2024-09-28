@@ -25,10 +25,11 @@ jobs:
         run: npm run build
 
       - name: Deploy to BunnyCDN
-        uses: ayeressian/bunnycdn-storage-deploy@v1
+        uses: ayeressian/bunnycdn-storage-deploy@v2.2.3
         with:
           source: "./html"
-          storage_zone: ${{ secrets.BUNNYCDN_STORAGE_ZONE }}
-          storage_key: ${{ secrets.BUNNYCDN_STORAGE_KEY }}
-          pull_zone: ${{ secrets.BUNNYCDN_PULL_ZONE }}
           destination: "/"
+          upload: "true"
+          remove: "true"
+          storageZoneName: ${{ secrets.BUNNYCDN_STORAGE_ZONE }}
+          storagePassword: ${{ secrets.BUNNYCDN_STORAGE_KEY }}
