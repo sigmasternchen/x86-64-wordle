@@ -16,7 +16,7 @@ export const Keyboard = ({enabled, used, onKey}) => {
                 onKey("ENTER");
             } else if (event.key === "Backspace") {
                 onKey("BACK");
-            } else if (event.key.length === 1 && keys.filter(id).indexOf(event.key.toUpperCase())) {
+            } else if (event.key.length === 1 && keys.filter(id).indexOf(event.key.toUpperCase()) >= 0) {
                 onKey(event.key.toUpperCase());
             }
         };
